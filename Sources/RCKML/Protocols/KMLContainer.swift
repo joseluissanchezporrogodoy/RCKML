@@ -69,8 +69,13 @@ internal extension KMLContainer {
             else {
                 return nil
             }
-            let res = try featureType.concreteType.init(xml: xmlChild)
-            return res
+            do {
+                print(xmlChild.name)
+                let res = try featureType.concreteType.init(xml: xmlChild)
+                return res
+            } catch {
+                return nil
+            }
         }
     }
 }
