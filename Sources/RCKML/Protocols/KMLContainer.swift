@@ -69,13 +69,15 @@ internal extension KMLContainer {
             else {
                 return nil
             }
-            do {
-                print(xmlChild.name)
-                let res = try featureType.concreteType.init(xml: xmlChild)
-                return res
-            } catch {
-                return nil
-            }
+            let res = try featureType.concreteType.init(xml: xmlChild)
+            return res
+//            do {
+//                print(xmlChild.name)
+//                let res = try featureType.concreteType.init(xml: xmlChild)
+//                return res
+//            } catch {
+//                return nil
+//            }
         }
     }
 }
@@ -88,7 +90,7 @@ internal extension KMLContainer {
     /// Only to be used inside this function call for recursive indentation.
     func listContents(indentation: Int = 0) {
         for feature in features {
-            var basic = "\(String(repeating: ".", count: indentation))\(feature.name): \(String(describing: type(of: feature)))"
+            var basic = "\(String(repeating: ".", count: indentation))\(feature.name ?? "Default name"): \(String(describing: type(of: feature)))"
 
             if let placemark = feature as? KMLPlacemark {
                 basic += "-" + String(describing: type(of: placemark.geometry))
